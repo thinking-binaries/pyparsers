@@ -19,8 +19,9 @@ data.
 The parsers in this package use a technique I developed many years
 ago to simplify parsing structured data, called "path parsing".
 This turns each collection of tags into a path a bit like a
-directory path, so the xml tags <record> then <field> then <value>
-would have a path of /record/field/value/
+directory path, so the xml tags RECORD then FIELD then VALUE
+would have a path of /RECORD/FIELD/VALUE/, but you can read more
+about how to use the paths in the Demo programs.
 
 
 These paths are then fed with their associated values into a single
@@ -34,6 +35,15 @@ over the coming weeks, so do follow this repo and look out for
 new code as I test and document it. (I've got more code in the
 wings, but I've only released in public form the parts that I think
 are most useful to other people at this stage).
+
+
+The "Test" files are just to test that the parsers work, and require
+that the file cars.xml is present (see notes in the Demo to see how
+to do this).
+
+
+The "Demo" files are real starting points of code that you can use
+to get going quickly.
 
 
 David Whale
