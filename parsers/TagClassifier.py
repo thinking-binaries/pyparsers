@@ -19,7 +19,7 @@ class TagClassifier(PathTagParser):
     
   def handle(self, path, data):
     #print(path + ": " + data)
-    if not self.paths.has_key(path):
+    if not path in self.paths:
       self.pathorder.append(path)
       self.paths[path] = [data]
     else:
@@ -39,12 +39,12 @@ def showPaths(paths, pathOrder):
     pathdata = paths[path]
     numdata = len(pathdata)
     iindex = 0
-    print("[" + str(pindex) + "] " + path + ":" + str(numdata))
+    print("[" + str(pindex) + "] " + path + " len=" + str(numdata))
     for data in pathdata:
       if data != None:
         tdata = data.strip()
         if len(tdata) > 0:
-          print("  [" + str(iindex) + "] " + data)
+          print("[" + str(pindex) + "] [" + str(iindex) + "] " + data)
         iindex += 1
     pindex += 1
 

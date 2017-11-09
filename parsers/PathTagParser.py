@@ -14,27 +14,33 @@ def error(msg):
 
     
 class PathTagParser(TagParser):
+  PATH_SEPARATOR = '/'
+  ATTRIBUTE      = '='
+  END_TAG        = '~'
+
   stack = []
-    
+
+  def __init__(self):
+    TagParser.__init__(self)
+
   def topath(self):
     p = ""
     for i in self.stack:
-      p = p + "/" + i
+      p = p + self.PATH_SEPARATOR + i
     return p
-    
     
   def tagStart(self, tag, attrs):
     #trace("{" + tag)
     self.stack.append(tag)
     path = self.topath()
-    self.handle(path, "")
+    self.handle(path, "") ##NODE/TAG
     if attrs != None:
       for attr in attrs:
-        self.handle(path + '/' + attr, attrs[attr])
+        self.handle(path + self.PATH_SEPARATOR + attr + self.ATTRIBUTE, attrs[attr]) ##ATTRIBUTE
     
   def tagEnd(self, tag):
     #trace("}" + tag)
-    self.handle(self.topath() + "~", "")
+    self.handle(self.topath() + self.END_TAG, "") ##NODE/TAG
     if len(self.stack) > 0:
       top = self.stack[-1]
       if top == tag:
@@ -57,11 +63,11 @@ class PathTagParser(TagParser):
         break
     
   def data(self, data):
-    self.handle(self.topath() + "/", data)
-    
+    self.handle(self.topath() + self.PATH_SEPARATOR, data) ##DATA
+
   def setpath(self, path):
     #trace("SETPATH:" + path)
-    parts = path.split("/")
+    parts = path.split(self.PATH_SEPARATOR)
     #for p in parts:
     #  trace(p)
     self.stack = parts
@@ -76,7 +82,8 @@ class PathTagParser(TagParser):
 # non object-oriented simple interface
 
 def fetch(url, filename):
-  os.system("wget -O " + filename + " " + url)
+  #os.system("wget -O " + filename + " " + url)
+  print("warning:wget fetch disabled in PathTagParser")
 
 def parse(filename, handler=None):
   """handler(path, data) must be provided by user"""

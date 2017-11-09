@@ -31,6 +31,7 @@ import sys
 import parsers.PathTagParser as Parser
 
 
+# use curl URL > cars.xml to get this file.
 URL = "http://data.nottinghamtravelwise.org.uk/parking.xml"
 FILENAME = "cars.xml"
 
@@ -40,7 +41,7 @@ if len(sys.argv) > 1:
 
 # This is the function that is called for each tag path in the xml file
 def handlePath(path, value):
-  print(path + "=" + value)
+  print(path + " " + value)
 
 
 # Enable this if you want the live data fetched every time you run  
